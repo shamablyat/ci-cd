@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hh
+spec:
+  selector:
+    matchLabels:
+      app: hh
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: hh
+    spec:
+      containers:
+        - name: hh
+          image: tajbaevsh/hh_server:latest
+          ports:
+            - containerPort: 8010
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hh
+  labels:
+    app: hh
+spec:
+  type: NodePort
+  ports:
+    - port: 8010
+      nodePort: 30012
+  selector:
+    app: hh
