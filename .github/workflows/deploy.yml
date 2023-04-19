@@ -40,3 +40,7 @@ jobs:
           port: ${{ secrets.SERVER_PORT }}
           script: 
             ls
+            kubectl get pods 
+            cd Projects
+            kubectl delete -f hh.yaml
+            kubectl apply -f hh.yaml
