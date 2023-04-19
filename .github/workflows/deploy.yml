@@ -38,7 +38,7 @@ jobs:
           key: ${{ secrets.PRIVATE_KEY }}
           password: ${{ secrets.SERVER_PASSWORD }}
           port: ${{ secrets.SERVER_PORT }}
-          script: 
+          script: |
             cd Projects
             kubectl delete -f hh.yaml
             kubectl apply -f hh.yaml
