@@ -39,8 +39,8 @@ jobs:
           script: |
             
             kubectl get pods
-            # kubectl delete -f hh.yaml
-            # kubectl apply -f hh.yaml
+            kubectl delete -f hh.yaml
+            kubectl apply -f hh.yaml
             ls
 
       - name: send telegram message on push
