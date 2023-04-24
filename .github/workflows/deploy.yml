@@ -38,7 +38,6 @@ jobs:
           key: ${{ secrets.PRIVATE_KEY }}
           script: |
             
-            
             # kubectl get pods
             # kubectl delete -f hh.yaml
             # kubectl apply -f hh.yaml
