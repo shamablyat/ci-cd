@@ -43,7 +43,7 @@ jobs:
             kubectl apply -f hh.yaml
             kubectl get deployments 
 
-      - name: send telegram message on push
+      - name: send notification to telegram 
         uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.TELEGRAM_TO }}
