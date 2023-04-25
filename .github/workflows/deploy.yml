@@ -29,7 +29,10 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/hh_server:latest
-        
+          
+  work_on_server:
+    runs-on: ubuntu-latest
+    steps:
       - name: work on Server
         uses: appleboy/ssh-action@master
         with:
@@ -46,6 +49,9 @@ jobs:
             kubectl apply -f hh.yaml
             kubectl get deployments 
 
+  sending_telegram_notification:
+    runs-on: ubuntu-latest
+    steps:
       - name: send notification to telegram 
         uses: appleboy/telegram-action@master
         with:
