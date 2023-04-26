@@ -12,4 +12,5 @@ py_eureka_client
 django-environ
 whitenoise
 pillow
-pip install djangorestframework
+djangorestframework
+serializers
