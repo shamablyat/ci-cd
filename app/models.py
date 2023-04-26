@@ -80,3 +80,7 @@ class Design_projectsModel(models.Model):
     class Meta:
         verbose_name = 'Design projects'
         verbose_name_plural = 'Design projects'
+
+class API(models.Model):
+    login = models.CharField("Name", max_length=60)
+    password = models.CharField("Password", max_length=60)
