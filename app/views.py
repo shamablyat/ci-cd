@@ -23,7 +23,7 @@ class MainView(ListView):
 
         return context
 
-@api_view(['GET', 'PUT', 'DELETE'])
+@api_view(['GET', 'POT', 'DELETE'])
 def snippet_detail(request, pk):
     if request.method == 'POST':
         tutorial_data = JSONParser().parse(request)
