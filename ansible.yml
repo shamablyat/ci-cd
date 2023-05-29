@@ -1,14 +1,39 @@
 ---
-- name: Login to Docker Hub
+- name: ansible v1
   hosts: localhost
   tasks:
     - name: Log in to Docker Hub
       docker_login:
         username: tajbaevsh
         password: qwertySh1
-        
+
     - name: Build Docker image
       command: docker build -t tajbaevsh/hh_server:latest /home/shama/Desktop/ci-cd
 
     - name: Push Docker image to Docker Hub
       command: docker push tajbaevsh/hh_server:latest
+
+    - name: display
+      command: ls
+      register: ls_output
+      
+    - name: Display kubectl output
+      debug:
+        var: ls_output.stdout_lines
+
+    - name: apply deployment.yaml
+      command: kubectl apply -f deployment.yaml
+      register: apply_output
+        
+    - name: Display kubectl output
+      debug:
+        var: apply_output.stdout_lines
+
+
+    - name: Run kubectl command
+      command: kubectl get pods 
+      register: kubectl_output
+
+    - name: Display kubectl output
+      debug:
+        var: kubectl_output.stdout_lines
