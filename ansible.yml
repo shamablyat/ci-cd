@@ -1,6 +1,7 @@
 ---
 - name: ansible v1
   hosts: localhost
+  gather_facts: no
   tasks:
     - name: Log in to Docker Hub
       docker_login:
@@ -21,14 +22,21 @@
       debug:
         var: ls_output.stdout_lines
 
-    - name: apply deployment.yaml
+    - name:  delete deployment.yaml
+      command: kubectl delete -f deployment.yaml
+      register: delete_output
+
+    - name: Display kubectl output
+      debug:
+        var: delete_output.stdout_lines
+
+    - name:  apply deployment.yaml
       command: kubectl apply -f deployment.yaml
       register: apply_output
         
     - name: Display kubectl output
       debug:
         var: apply_output.stdout_lines
-
 
     - name: Run kubectl command
       command: kubectl get pods 
