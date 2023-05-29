@@ -1,0 +1,14 @@
+---
+- name: Login to Docker Hub
+  hosts: localhost
+  tasks:
+    - name: Log in to Docker Hub
+      docker_login:
+        username: tajbaevsh
+        password: qwertySh1
+        
+    - name: Build Docker image
+      command: docker build -t tajbaevsh/hh_server:latest /home/shama/Desktop/ci-cd
+
+    - name: Push Docker image to Docker Hub
+      command: docker push tajbaevsh/hh_server:latest
