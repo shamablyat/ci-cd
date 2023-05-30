@@ -1,0 +1,15 @@
+---
+- name: ansible v1
+  hosts: servers
+  gather_facts: no
+  vars:
+    ansible_user: ismoil
+    ansible_ssh_pass: Martian123!
+  tasks:
+    - name: display
+      command: ls
+      register: ls_output
+      
+    - name: Display kubectl output
+      debug:
+        var: ls_output.stdout_lines
