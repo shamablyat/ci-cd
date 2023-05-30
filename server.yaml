@@ -59,13 +59,20 @@
     ansible_become_password: Martian123!
 
   tasks:
-    - name: change directory 
-      command: chdir=Projects ls
-
-    - name: display_server
+    - name: display_server_directory
       command: ls
+      register: ls_server_output
+
+    - name: Display server output
+      debug:
+        var: ls_server_output.stdout_lines
+
+    - name: change directory 
+      command: ls
+      args:
+        chdir: Projects
       register: ls_output
-      
+
     - name: Display server output
       debug:
         var: ls_output.stdout_lines
