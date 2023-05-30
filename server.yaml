@@ -50,12 +50,18 @@
 - name: ansible v1
   hosts: servers
   gather_facts: no
+  become: true
+  become_method: sudo
   become_user: root
   vars:
     ansible_user: ismoil
     ansible_ssh_pass: Martian123!
+    ansible_become_password: Martian123!
 
   tasks:
+    - name: change directory 
+      command: chdir=Projects ls
+
     - name: display_server
       command: ls
       register: ls_output
@@ -63,11 +69,11 @@
     - name: Display server output
       debug:
         var: ls_output.stdout_lines
-    
-    - name: Run kubectl command
-      command: kubectl get pods 
-      register: kubectl_output
 
-    - name: Display kubectl output
-      debug:
-        var: kubectl_output.stdout_lines
+    # - name: Run kubectl command
+    #   command: kubectl get pods 
+    #   register: kubectl_output
+
+    # - name: Display kubectl output
+    #   debug:
+    #     var: kubectl_output.stdout_lines
