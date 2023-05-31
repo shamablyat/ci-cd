@@ -67,10 +67,22 @@
       debug:
         var: ls_server_output.stdout_lines
 
+    - name: Create file in project directory
+      file:
+        path: /etc/nginx/conf.d
+        state: directory
+        mode: '0755'
+
+    - name: Create the file
+      file:
+        path: /etc/nginx/sites-available/test
+        state: touch
+        mode: "0644"
+        
     - name: change directory 
       command: ls
       args:
-        chdir: Projects
+        chdir: /etc/nginx/sites-available
       register: ls_output
 
     - name: Display server output
