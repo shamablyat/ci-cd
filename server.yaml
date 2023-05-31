@@ -67,32 +67,40 @@
       debug:
         var: ls_server_output.stdout_lines
 
-    - name: Create file in project directory
-      file:
-        path: /etc/nginx/conf.d
-        state: directory
-        mode: '0755'
+    - name: whoami command
+      command: whoami
+      register: whoami
 
-    - name: Create the file
-      file:
-        path: /etc/nginx/sites-available/test
-        state: touch
-        mode: "0644"
-        
-    - name: change directory 
-      command: ls
-      args:
-        chdir: /etc/nginx/sites-available
-      register: ls_output
-
-    - name: Display server output
+    - name: whoami command output
       debug:
-        var: ls_output.stdout_lines
+        var: whoami.stdout_lines
 
-    # - name: Run kubectl command
-    #   command: kubectl get pods 
-    #   register: kubectl_output
+    - name: add kubernetes file in server  
+      template:
+        src: /etc/nginx/sites-available/hh.conf
+        dest: /etc/nginx/sites-available/
 
-    # - name: Display kubectl output
-    #   debug:
-    #     var: kubectl_output.stdout_lines
+    - name: create a symbolic-link for nginx file
+      command: ln -s ../sites-available/hh.conf
+      args:
+        chdir: /etc/nginx/sites-enabled
+
+    - name: Restart Nginx service
+      command: sudo systemctl restart nginx
+
+    - name: nginx restart output
+      debug:
+        var: nginx_restart.stdout_lines
+
+    - name: Run kubectl command
+      command: kubectl get pods 
+      register: kubectl_output
+
+    - name: Display kubectl output
+      debug:
+        var: kubectl_output.stdout_lines
+
+    - name: add kuberntes file in server  
+      template:
+        src: /home/shama/Desktop/ci-cd/deployment.yaml
+        dest: /home/ismoil/Projects
